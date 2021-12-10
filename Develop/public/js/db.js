@@ -1,14 +1,14 @@
 let db;
-
+// creat a new db request
 const request = indexedDB.open("budget, 1");
 
 request.onupgradeneeded = function (e) {
-  const db = e.target.result;
+  const db = e.target.result; // create object store called "pending"
   db.creatObjectStore("pending", { autoIncrement: true });
 };
 
 if (navigator.onLine) {
-  checkDatabase();
+  checkDatabase(); // check to see if app is online before reading from db
 }
 
 request.onerror = function (event) {

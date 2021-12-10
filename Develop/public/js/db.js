@@ -16,15 +16,15 @@ request.onerror = function (event) {
 };
 
 function saveRecord(record) {
-  const transaction = db.transaction(["pending"], "readwrite");
-  const store = transaction.objectStore("pending");
-  store.add(record);
+  const transaction = db.transaction(["pending"], "readwrite"); // create transaction on pending db
+  const store = transaction.objectStore("pending"); // access pending transation
+  store.add(record); // add record to your store
 }
 
 function checkDatabase() {
-  const transaction = db.transaction(["pending"], "readwrite");
+  const transaction = db.transaction(["pending"], "readwrite"); // open a transaction on your pending db
   const store = transaction.objectStore("pending");
-  const getAll = store.getAll();
+  const getAll = store.getAll(); // get all records from store
 
   getAll.onsuccess = function () {
     if (getAll.result.length > 0) {

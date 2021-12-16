@@ -11,6 +11,14 @@ if (navigator.onLine) {
   checkDatabase(); // check to see if app is online before reading from db
 }
 
+request.onsuccess = (event) => {
+  db = event.target.result;
+  // Check to see whether the application is online
+  if (navigator.onLine) {
+    checkDatabase();
+  }
+};
+
 request.onerror = function (event) {
   console.log("Woops! " + event.target.errorCode);
 };
@@ -35,8 +43,8 @@ function checkDatabase() {
           Accept: "application/json, text/plain, */*",
           "Content-Type": "application/json",
         },
-      });
-      then((response) => response.json()).then(() => {
+      })
+      .then((response) => response.json()).then(() => {
         // if successful, open a transaction on your pending db
         const transaction = db.transaction(["pending"], "readwrite");
 
